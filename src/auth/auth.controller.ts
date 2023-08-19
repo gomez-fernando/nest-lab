@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, ParseIntPipe, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 // import { Request } from 'express';  this is for access the req from express
@@ -10,12 +10,16 @@ export class AuthController {
   @Post('signup')
   // signup(@Req() req:Request) {  this is for access the req from express
   signup(@Body() dto: AuthDto) {
-    debugger
-    return this.authService.signup()
+    // signup(   to apply pipe individually
+    //   @Body('email') email:string,
+    //   @Body('password', ParseIntPipe) password:string
+    // ) {
+    
+    return this.authService.signup(dto)
   }
 
   @Post('signin')
-  signin() {
-    return this.authService.signin()
+  signin(@Body() dto: AuthDto) {
+    return this.authService.signin(dto)
   }
 }
